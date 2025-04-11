@@ -1,7 +1,21 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import Hologram from './Hologram';
+
+// Define custom element for TypeScript
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'elevenlabs-convai': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+        'agent-id': string;
+      };
+    }
+  }
+}
 
 const EdithInterface = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
     // Create and append ElevenLabs widget script
     const script = document.createElement('script');
@@ -12,25 +26,27 @@ const EdithInterface = () => {
 
     // Cleanup on unmount
     return () => {
-      document.body.removeChild(script);
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
     };
   }, []);
 
   return (
-    <div className="edith-container p-4 animate-fade-in">
+    <div className="edith-container p-4 animate-fade-in" ref={containerRef}>
       <div className="max-w-6xl w-full relative">
-        <div className="absolute -top-16 left-0 right-0 flex justify-center">
-          <h1 className="text-2xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+        <div className="absolute top-4 left-0 right-0 flex justify-center z-10">
+          <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
             EDITH
           </h1>
         </div>
         
-        <elevenlabs-convai agent-id="l7x6pl7IIlFC8Q6ECgiw"></elevenlabs-convai>
+        <div className="hologram-wrapper">
+          <Hologram />
+        </div>
         
-        <div className="absolute -bottom-12 left-0 right-0 flex justify-center">
-          <p className="text-xs text-muted-foreground">
-            Powered by ElevenLabs
-          </p>
+        <div className="convai-widget-wrapper">
+          <elevenlabs-convai agent-id="l7x6pl7IIlFC8Q6ECgiw"></elevenlabs-convai>
         </div>
       </div>
     </div>
