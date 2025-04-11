@@ -53,8 +53,8 @@
 
   /* Hologram styling */
   .hologram-wrapper {
-    height: 50vh;
-    min-height: 400px;
+    height: 55vh;
+    min-height: 450px;
     width: 100%;
     margin: 0 auto;
     position: relative;
@@ -64,6 +64,20 @@
     width: 100%;
     height: 100%;
     position: relative;
+    overflow: visible;
+  }
+
+  /* Add glow effect to the hologram */
+  .hologram-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
   }
 
   /* ElevenLabs widget custom styling */
