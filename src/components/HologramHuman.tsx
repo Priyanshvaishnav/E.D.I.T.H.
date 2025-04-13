@@ -4,7 +4,6 @@ import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Hologram figure based on the reference image
 const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
   const group = useRef<THREE.Group>(null);
   
@@ -131,7 +130,7 @@ const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
       {/* Glowing elements for the glasses */}
       <pointLight position={[0, 1.12, 0.25]} color="#33C3F0" intensity={0.7} distance={3} />
       
-      {/* Circuit patterns on body (decorative lines) - more of them for detail */}
+      {/* Circuit patterns on body (decorative lines) */}
       {Array.from({ length: 15 }).map((_, i) => (
         <mesh key={`circuit-${i}`} position={[
           (Math.random() - 0.5) * 0.5, 
