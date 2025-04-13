@@ -36,7 +36,7 @@ const EdithInterface = () => {
     <div className="edith-container p-4 animate-fade-in" ref={containerRef}>
       <div className="max-w-7xl mx-auto w-full relative">
         <div className="absolute top-0 left-0 right-0 flex justify-center z-20">
-          <h1 className="edith-title text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">
+          <h1 className="edith-title text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-yellow-300">
             EDITH
           </h1>
         </div>

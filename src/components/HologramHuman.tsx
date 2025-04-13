@@ -1,10 +1,10 @@
 
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF, Text } from '@react-three/drei';
+import { Text } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Male hologram figure with EDITH glasses
+// Hologram figure based on the reference image
 const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
   const group = useRef<THREE.Group>(null);
   
@@ -12,31 +12,82 @@ const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
   useFrame((state) => {
     if (group.current) {
       group.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.05;
-      group.current.rotation.y = state.clock.getElapsedTime() * 0.1;
     }
   });
 
   return (
-    <group ref={group} scale={[scale, scale, scale]} position={[0, -0.5, 0]}>
-      {/* Human silhouette */}
-      <mesh>
-        <cylinderGeometry args={[0.3, 0.4, 1.7, 16]} />
+    <group ref={group} scale={[scale, scale, scale]} position={[0, -0.2, 0]}>
+      {/* Head - main part of the hologram */}
+      <mesh position={[0, 1.1, 0]}>
+        <sphereGeometry args={[0.3, 32, 32]} />
         <meshBasicMaterial 
-          color="#6b72ff" 
+          color="#1EAEDB" 
           wireframe 
           transparent 
-          opacity={0.4} 
+          opacity={0.7} 
         />
       </mesh>
       
-      {/* Head */}
-      <mesh position={[0, 1.1, 0]}>
-        <sphereGeometry args={[0.25, 16, 16]} />
+      {/* Face features - simplified */}
+      <mesh position={[0, 1.08, 0.15]}>
+        <boxGeometry args={[0.2, 0.12, 0.05]} />
         <meshBasicMaterial 
-          color="#9b87f5" 
+          color="#1EAEDB"
+          wireframe
+          transparent 
+          opacity={0.5}
+        />
+      </mesh>
+      
+      {/* EDITH Glasses - more detailed */}
+      <mesh position={[0, 1.12, 0.18]}>
+        <boxGeometry args={[0.4, 0.08, 0.01]} />
+        <meshBasicMaterial 
+          color="#33C3F0"
+          transparent 
+          opacity={0.9}
+        />
+      </mesh>
+      
+      {/* Left lens */}
+      <mesh position={[-0.1, 1.12, 0.2]}>
+        <boxGeometry args={[0.13, 0.07, 0.01]} />
+        <meshBasicMaterial 
+          color="#F0D21E"
+          transparent 
+          opacity={0.7}
+        />
+      </mesh>
+      
+      {/* Right lens */}
+      <mesh position={[0.1, 1.12, 0.2]}>
+        <boxGeometry args={[0.13, 0.07, 0.01]} />
+        <meshBasicMaterial 
+          color="#F0D21E"
+          transparent 
+          opacity={0.7}
+        />
+      </mesh>
+      
+      {/* Neck */}
+      <mesh position={[0, 0.8, 0]}>
+        <cylinderGeometry args={[0.1, 0.18, 0.3, 16]} />
+        <meshBasicMaterial 
+          color="#1EAEDB" 
           wireframe 
           transparent 
-          opacity={0.4} 
+          opacity={0.6} 
+        />
+      </mesh>
+      
+      {/* Torso - upper body */}
+      <mesh position={[0, 0.3, 0]}>
+        <cylinderGeometry args={[0.3, 0.4, 0.7, 16]} />
+        <meshBasicMaterial 
+          color="#1EAEDB" 
+          wireframe 
+          transparent 
+          opacity={0.6} 
         />
       </mesh>
       
@@ -44,113 +95,166 @@ const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
       <mesh position={[0, 0.7, 0]}>
         <boxGeometry args={[0.8, 0.1, 0.3]} />
         <meshBasicMaterial 
-          color="#6b72ff" 
+          color="#1EAEDB" 
           wireframe 
           transparent 
-          opacity={0.4} 
+          opacity={0.6} 
         />
       </mesh>
       
-      {/* Arms */}
-      <mesh position={[0.45, 0.4, 0]}>
-        <cylinderGeometry args={[0.08, 0.1, 0.7, 8]} rotation={[0, 0, Math.PI * 0.1]} />
-        <meshBasicMaterial 
-          color="#6b72ff" 
-          wireframe 
-          transparent 
-          opacity={0.4}
-        />
-      </mesh>
+      {/* Left arm */}
+      <group position={[0.45, 0.4, 0]} rotation={[0, 0, Math.PI * 0.1]}>
+        <mesh>
+          <cylinderGeometry args={[0.08, 0.1, 0.7, 8]} />
+          <meshBasicMaterial 
+            color="#1EAEDB" 
+            wireframe 
+            transparent 
+            opacity={0.6}
+          />
+        </mesh>
+      </group>
       
-      <mesh position={[-0.45, 0.4, 0]}>
-        <cylinderGeometry args={[0.08, 0.1, 0.7, 8]} rotation={[0, 0, -Math.PI * 0.1]} />
-        <meshBasicMaterial 
-          color="#6b72ff" 
-          wireframe 
-          transparent 
-          opacity={0.4}
-        />
-      </mesh>
-      
-      {/* EDITH Glasses */}
-      <mesh position={[0, 1.12, 0.15]}>
-        <boxGeometry args={[0.4, 0.08, 0.05]} />
-        <meshBasicMaterial 
-          color="#1EAEDB"
-          transparent 
-          opacity={0.8}
-        />
-      </mesh>
+      {/* Right arm */}
+      <group position={[-0.45, 0.4, 0]} rotation={[0, 0, -Math.PI * 0.1]}>
+        <mesh>
+          <cylinderGeometry args={[0.08, 0.1, 0.7, 8]} />
+          <meshBasicMaterial 
+            color="#1EAEDB" 
+            wireframe 
+            transparent 
+            opacity={0.6}
+          />
+        </mesh>
+      </group>
       
       {/* Glowing elements for the glasses */}
-      <pointLight position={[0, 1.12, 0.2]} color="#1EAEDB" intensity={0.5} distance={3} />
+      <pointLight position={[0, 1.12, 0.25]} color="#33C3F0" intensity={0.7} distance={3} />
       
-      {/* Circuit patterns on body (decorative lines) */}
-      {Array.from({ length: 8 }).map((_, i) => (
+      {/* Circuit patterns on body (decorative lines) - more of them for detail */}
+      {Array.from({ length: 15 }).map((_, i) => (
         <mesh key={`circuit-${i}`} position={[
-          (Math.random() - 0.5) * 0.4, 
-          (Math.random() * 1.4) - 0.5, 
-          (Math.random() - 0.5) * 0.2
+          (Math.random() - 0.5) * 0.5, 
+          (Math.random() * 1.6) - 0.5, 
+          (Math.random() - 0.5) * 0.2 + 0.1
         ]}>
-          <boxGeometry args={[0.05, 0.01, 0.01]} />
-          <meshBasicMaterial color="#1EAEDB" transparent opacity={0.7} />
+          <boxGeometry args={[Math.random() * 0.1 + 0.05, 0.01, 0.01]} />
+          <meshBasicMaterial color={i % 3 === 0 ? "#F0D21E" : "#1EAEDB"} transparent opacity={0.8} />
         </mesh>
       ))}
       
-      {/* Holographic message */}
-      <group position={[0, 1.5, 0.6]}>
+      {/* Message box with text */}
+      <group position={[0, 0, 0.6]}>
+        {/* Message box frame */}
+        <mesh position={[0, 0.2, 0]}>
+          <boxGeometry args={[1.4, 0.8, 0.01]} />
+          <meshBasicMaterial 
+            color="#1EAEDB" 
+            transparent 
+            opacity={0.1} 
+          />
+        </mesh>
+        
+        {/* Box border - top */}
+        <mesh position={[0, 0.6, 0]}>
+          <boxGeometry args={[1.4, 0.02, 0.01]} />
+          <meshBasicMaterial color="#33C3F0" transparent opacity={0.8} />
+        </mesh>
+        
+        {/* Box border - bottom */}
+        <mesh position={[0, -0.2, 0]}>
+          <boxGeometry args={[1.4, 0.02, 0.01]} />
+          <meshBasicMaterial color="#33C3F0" transparent opacity={0.8} />
+        </mesh>
+        
+        {/* Box border - left */}
+        <mesh position={[-0.7, 0.2, 0]}>
+          <boxGeometry args={[0.02, 0.8, 0.01]} />
+          <meshBasicMaterial color="#33C3F0" transparent opacity={0.8} />
+        </mesh>
+        
+        {/* Box border - right */}
+        <mesh position={[0.7, 0.2, 0]}>
+          <boxGeometry args={[0.02, 0.8, 0.01]} />
+          <meshBasicMaterial color="#33C3F0" transparent opacity={0.8} />
+        </mesh>
+        
+        {/* Corner details - top left */}
+        <mesh position={[-0.65, 0.55, 0]}>
+          <boxGeometry args={[0.12, 0.02, 0.01]} />
+          <meshBasicMaterial color="#F0D21E" transparent opacity={0.8} />
+        </mesh>
+        
+        {/* Corner details - top right */}
+        <mesh position={[0.65, 0.55, 0]}>
+          <boxGeometry args={[0.12, 0.02, 0.01]} />
+          <meshBasicMaterial color="#F0D21E" transparent opacity={0.8} />
+        </mesh>
+        
+        {/* Corner details - bottom left */}
+        <mesh position={[-0.65, -0.15, 0]}>
+          <boxGeometry args={[0.12, 0.02, 0.01]} />
+          <meshBasicMaterial color="#F0D21E" transparent opacity={0.8} />
+        </mesh>
+        
+        {/* Corner details - bottom right */}
+        <mesh position={[0.65, -0.15, 0]}>
+          <boxGeometry args={[0.12, 0.02, 0.01]} />
+          <meshBasicMaterial color="#F0D21E" transparent opacity={0.8} />
+        </mesh>
+        
+        {/* Message text */}
         <Text
-          position={[0, 0, 0]}
-          fontSize={0.1}
-          color="#1EAEDB"
+          position={[0, 0.35, 0.05]}
+          fontSize={0.13}
+          color="#33C3F0"
           anchorX="center"
           anchorY="middle"
           outlineWidth={0.005}
-          outlineColor="#9b87f5"
+          outlineColor="#1EAEDB"
           material-transparent={true}
-          material-opacity={0.8}
+          material-opacity={0.9}
         >
-          Hey You, I am here to help
+          Hey You,
         </Text>
         <Text
-          position={[0, -0.15, 0]}
-          fontSize={0.1}
-          color="#1EAEDB"
+          position={[0, 0.2, 0.05]}
+          fontSize={0.13}
+          color="#33C3F0"
           anchorX="center"
           anchorY="middle"
           outlineWidth={0.005}
-          outlineColor="#9b87f5"
+          outlineColor="#1EAEDB"
           material-transparent={true}
-          material-opacity={0.8}
+          material-opacity={0.9}
         >
-          you in everything.
+          I am here to help you
+        </Text>
+        <Text
+          position={[0, 0.05, 0.05]}
+          fontSize={0.13}
+          color="#33C3F0"
+          anchorX="center"
+          anchorY="middle"
+          outlineWidth={0.005}
+          outlineColor="#1EAEDB"
+          material-transparent={true}
+          material-opacity={0.9}
+        >
+          in everything.
         </Text>
       </group>
       
-      {/* Holographic UI elements projecting from glasses */}
-      {Array.from({ length: 5 }).map((_, i) => {
-        const angle = (i / 5) * Math.PI * 0.6 - Math.PI * 0.3;
-        const distance = 0.4 + Math.random() * 0.3;
-        return (
-          <mesh 
-            key={`ui-element-${i}`} 
-            position={[
-              Math.sin(angle) * distance, 
-              1.1 + Math.cos(angle) * distance * 0.5, 
-              0.2 + distance * 0.3
-            ]}
-          >
-            <boxGeometry args={[0.1, 0.05, 0.01]} />
-            <meshBasicMaterial color="#1EAEDB" transparent opacity={0.6} />
-          </mesh>
-        );
-      })}
+      {/* Light cone effect from glasses */}
+      <group position={[0, 1.12, 0.2]} rotation={[Math.PI / 2, 0, 0]}>
+        <mesh>
+          <coneGeometry args={[0.6, 1.2, 16, 1, true]} />
+          <meshBasicMaterial color="#33C3F0" transparent opacity={0.2} />
+        </mesh>
+      </group>
       
-      {/* Light beams from glasses */}
-      <mesh position={[0, 1.12, 0.17]}>
-        <coneGeometry args={[0.6, 1.2, 16, 1, true]} rotation={[Math.PI / 2, 0, 0]} />
-        <meshBasicMaterial color="#1EAEDB" transparent opacity={0.2} />
-      </mesh>
+      {/* Background glow effect */}
+      <pointLight position={[0, 0.5, -0.5]} color="#1EAEDB" intensity={0.8} distance={5} />
     </group>
   );
 };
