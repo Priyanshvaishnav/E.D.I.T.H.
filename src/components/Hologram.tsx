@@ -26,7 +26,7 @@ const SpaceBackground = () => {
 // Ambient light effect
 const AmbientGlow = () => {
   return (
-    <ambientLight intensity={0.5} color="#1EAEDB" />
+    <ambientLight intensity={0.6} color="#1EAEDB" />
   );
 };
 
@@ -43,7 +43,7 @@ const HologramBase = () => {
 // Hologram base glow effect
 const BaseGlow = () => {
   return (
-    <pointLight position={[0, -0.9, 0]} color="#1EAEDB" intensity={2} distance={3} />
+    <pointLight position={[0, -0.9, 0]} color="#1EAEDB" intensity={2.5} distance={3} />
   );
 };
 
@@ -56,7 +56,7 @@ const DigitalGrid = () => {
         color="#1EAEDB" 
         wireframe 
         transparent 
-        opacity={0.1} 
+        opacity={0.15} 
       />
     </mesh>
   );
@@ -88,7 +88,13 @@ const HologramScene = () => {
 
 const Hologram = () => {
   return (
-    <div className="hologram-container">
+    <div className="hologram-container relative">
+      {/* Modern hologram effect overlay */}
+      <div className="absolute inset-0 pointer-events-none z-10">
+        <div className="absolute inset-0 scan-line"></div>
+        <div className="absolute inset-0 glitch-effect"></div>
+      </div>
+      
       <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
         <HologramScene />
       </Canvas>

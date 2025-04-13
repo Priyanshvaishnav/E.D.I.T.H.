@@ -34,7 +34,18 @@ const EdithInterface = () => {
 
   return (
     <div className="edith-container p-4 animate-fade-in" ref={containerRef}>
-      <div className="max-w-7xl mx-auto w-full relative">
+      {/* Background image overlay */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-black/40 mix-blend-multiply"></div>
+        <img 
+          src="/lovable-uploads/406fc301-03a2-470e-883d-e3b6ca3a661a.png" 
+          alt="Holographic background" 
+          className="w-full h-full object-cover opacity-70"
+        />
+        <div className="absolute inset-0 hologram-overlay"></div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto w-full relative z-10">
         <div className="absolute top-0 left-0 right-0 flex justify-center z-20">
           <h1 className="edith-title text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-yellow-300">
             EDITH

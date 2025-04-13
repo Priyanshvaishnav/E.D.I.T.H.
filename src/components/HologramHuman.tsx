@@ -38,7 +38,7 @@ const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
         />
       </mesh>
       
-      {/* EDITH Glasses - more detailed */}
+      {/* EDITH Glasses - more detailed and brighter to match the image */}
       <mesh position={[0, 1.12, 0.18]}>
         <boxGeometry args={[0.4, 0.08, 0.01]} />
         <meshBasicMaterial 
@@ -48,23 +48,23 @@ const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
         />
       </mesh>
       
-      {/* Left lens */}
+      {/* Left lens - brighter yellow/cyan to match image */}
       <mesh position={[-0.1, 1.12, 0.2]}>
         <boxGeometry args={[0.13, 0.07, 0.01]} />
         <meshBasicMaterial 
-          color="#F0D21E"
+          color="#50E6F0"
           transparent 
-          opacity={0.7}
+          opacity={0.8}
         />
       </mesh>
       
-      {/* Right lens */}
+      {/* Right lens - brighter yellow/cyan to match image */}
       <mesh position={[0.1, 1.12, 0.2]}>
         <boxGeometry args={[0.13, 0.07, 0.01]} />
         <meshBasicMaterial 
-          color="#F0D21E"
+          color="#50E6F0"
           transparent 
-          opacity={0.7}
+          opacity={0.8}
         />
       </mesh>
       
@@ -127,8 +127,8 @@ const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
         </mesh>
       </group>
       
-      {/* Glowing elements for the glasses */}
-      <pointLight position={[0, 1.12, 0.25]} color="#33C3F0" intensity={0.7} distance={3} />
+      {/* Glowing elements for the glasses - brighter to match image */}
+      <pointLight position={[0, 1.12, 0.25]} color="#33C3F0" intensity={1.2} distance={3} />
       
       {/* Circuit patterns on body (decorative lines) */}
       {Array.from({ length: 15 }).map((_, i) => (
@@ -138,7 +138,7 @@ const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
           (Math.random() - 0.5) * 0.2 + 0.1
         ]}>
           <boxGeometry args={[Math.random() * 0.1 + 0.05, 0.01, 0.01]} />
-          <meshBasicMaterial color={i % 3 === 0 ? "#F0D21E" : "#1EAEDB"} transparent opacity={0.8} />
+          <meshBasicMaterial color={i % 3 === 0 ? "#50E6F0" : "#1EAEDB"} transparent opacity={0.8} />
         </mesh>
       ))}
       
@@ -181,32 +181,32 @@ const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
         {/* Corner details - top left */}
         <mesh position={[-0.65, 0.55, 0]}>
           <boxGeometry args={[0.12, 0.02, 0.01]} />
-          <meshBasicMaterial color="#F0D21E" transparent opacity={0.8} />
+          <meshBasicMaterial color="#50E6F0" transparent opacity={0.8} />
         </mesh>
         
         {/* Corner details - top right */}
         <mesh position={[0.65, 0.55, 0]}>
           <boxGeometry args={[0.12, 0.02, 0.01]} />
-          <meshBasicMaterial color="#F0D21E" transparent opacity={0.8} />
+          <meshBasicMaterial color="#50E6F0" transparent opacity={0.8} />
         </mesh>
         
         {/* Corner details - bottom left */}
         <mesh position={[-0.65, -0.15, 0]}>
           <boxGeometry args={[0.12, 0.02, 0.01]} />
-          <meshBasicMaterial color="#F0D21E" transparent opacity={0.8} />
+          <meshBasicMaterial color="#50E6F0" transparent opacity={0.8} />
         </mesh>
         
         {/* Corner details - bottom right */}
         <mesh position={[0.65, -0.15, 0]}>
           <boxGeometry args={[0.12, 0.02, 0.01]} />
-          <meshBasicMaterial color="#F0D21E" transparent opacity={0.8} />
+          <meshBasicMaterial color="#50E6F0" transparent opacity={0.8} />
         </mesh>
         
-        {/* Message text */}
+        {/* Message text - using the same text as in the image */}
         <Text
           position={[0, 0.35, 0.05]}
           fontSize={0.13}
-          color="#33C3F0"
+          color="#50E6F0"
           anchorX="center"
           anchorY="middle"
           outlineWidth={0.005}
@@ -219,7 +219,7 @@ const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
         <Text
           position={[0, 0.2, 0.05]}
           fontSize={0.13}
-          color="#33C3F0"
+          color="#50E6F0"
           anchorX="center"
           anchorY="middle"
           outlineWidth={0.005}
@@ -232,7 +232,7 @@ const HologramHuman = ({ scale = 1 }: { scale?: number }) => {
         <Text
           position={[0, 0.05, 0.05]}
           fontSize={0.13}
-          color="#33C3F0"
+          color="#50E6F0"
           anchorX="center"
           anchorY="middle"
           outlineWidth={0.005}
