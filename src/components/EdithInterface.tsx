@@ -36,16 +36,16 @@ const EdithInterface = () => {
     <div className="edith-container p-4 animate-fade-in" ref={containerRef}>
       <div className="max-w-6xl w-full relative">
         <div className="absolute top-0 left-0 right-0 flex justify-center z-10">
-          <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
+          <h1 className="edith-title text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-300">
             EDITH
           </h1>
         </div>
         
-        <div className="hologram-wrapper mt-16">
+        <div className="hologram-wrapper mt-20">
           <Hologram />
         </div>
         
-        <div className="convai-widget-wrapper mt-4">
+        <div className="convai-widget-wrapper mt-8">
           <elevenlabs-convai agent-id="l7x6pl7IIlFC8Q6ECgiw"></elevenlabs-convai>
         </div>
       </div>

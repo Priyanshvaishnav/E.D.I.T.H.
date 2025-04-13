@@ -16,12 +16,12 @@ const GlobeGrid = ({ radius = 0.9 }: { radius?: number }) => {
   
   return (
     <mesh ref={gridMeshRef}>
-      <sphereGeometry args={[radius, 32, 32]} />
+      <sphereGeometry args={[radius, 36, 36]} />
       <meshBasicMaterial 
-        color="#3b82f6" 
+        color="#6b72ff" 
         wireframe 
         transparent 
-        opacity={0.5} 
+        opacity={0.6} 
       />
     </mesh>
   );
@@ -42,16 +42,16 @@ const CoreSphere = ({ radius = 0.8 }: { radius?: number }) => {
     <mesh ref={sphereRef}>
       <sphereGeometry args={[radius, 32, 32]} />
       <meshBasicMaterial 
-        color="#60a5fa" 
+        color="#9b87f5" 
         transparent 
-        opacity={0.2} 
+        opacity={0.3} 
       />
     </mesh>
   );
 };
 
 // Orbiting particles/data nodes
-const Nodes = ({ count = 20, radius = 1 }: { count?: number; radius?: number }) => {
+const Nodes = ({ count = 30, radius = 1.1 }: { count?: number; radius?: number }) => {
   const pointsRef = useRef<THREE.Points>(null);
   const positions = React.useMemo(() => {
     const positions = [];
@@ -86,7 +86,7 @@ const Nodes = ({ count = 20, radius = 1 }: { count?: number; radius?: number }) 
       </bufferGeometry>
       <pointsMaterial 
         size={0.08} 
-        color="#60a5fa" 
+        color="#c4b5fd" 
         sizeAttenuation={true} 
       />
     </points>
@@ -97,7 +97,7 @@ const Nodes = ({ count = 20, radius = 1 }: { count?: number; radius?: number }) 
 const OrbitalRing = ({ 
   radius = 1.2, 
   rotation = 0, 
-  color = "#3b82f6",
+  color = "#7E69AB",
   thickness = 0.02,
   speed = 0.2
 }: { 
@@ -119,7 +119,7 @@ const OrbitalRing = ({
   return (
     <mesh ref={ringRef} rotation={[Math.PI / 2 + rotation, 0, 0]}>
       <torusGeometry args={[radius, thickness, 16, 100]} />
-      <meshBasicMaterial color={color} transparent opacity={0.6} />
+      <meshBasicMaterial color={color} transparent opacity={0.7} />
     </mesh>
   );
 };
@@ -130,7 +130,7 @@ const OrbitalParticle = ({
   speed = 0.5,
   rotationOffset = 0,
   size = 0.08,
-  color = "#60a5fa"
+  color = "#9b87f5"
 }: { 
   radius?: number; 
   speed?: number;
@@ -161,7 +161,7 @@ const OrbitalTrail = ({
   radius = 1.2, 
   speed = 0.5,
   rotationOffset = 0,
-  color = "#60a5fa"
+  color = "#1EAEDB"
 }: { 
   radius?: number; 
   speed?: number;
@@ -181,7 +181,7 @@ const OrbitalTrail = ({
   return (
     <Trail
       width={0.05}
-      length={5}
+      length={7}
       color={new THREE.Color(color)}
       attenuation={(t) => t * t}
     >
@@ -193,24 +193,31 @@ const OrbitalTrail = ({
   );
 };
 
+// Ambient light effect
+const AmbientGlow = () => {
+  return (
+    <ambientLight intensity={0.5} color="#8B5CF6" />
+  );
+};
+
 const HologramScene = () => {
   return (
     <>
-      <ambientLight intensity={0.5} />
+      <AmbientGlow />
       <CoreSphere />
       <GlobeGrid />
-      <Nodes count={25} radius={1} />
+      <Nodes count={32} radius={1.1} />
       
-      <OrbitalRing radius={1.2} rotation={1} color="#3b82f6" />
-      <OrbitalRing radius={1.5} rotation={-0.5} color="#3b82f6" />
-      <OrbitalRing radius={1.8} rotation={0.7} color="#3b82f6" thickness={0.01} speed={0.1} />
+      <OrbitalRing radius={1.3} rotation={1} color="#8B5CF6" />
+      <OrbitalRing radius={1.6} rotation={-0.5} color="#6b72ff" />
+      <OrbitalRing radius={1.9} rotation={0.7} color="#7E69AB" thickness={0.01} speed={0.12} />
       
-      <OrbitalParticle radius={1.2} speed={0.5} size={0.08} color="#ffffff" />
-      <OrbitalParticle radius={1.5} speed={-0.3} rotationOffset={Math.PI} size={0.05} color="#60a5fa" />
-      <OrbitalParticle radius={1.8} speed={0.2} rotationOffset={Math.PI/2} size={0.06} color="#93c5fd" />
+      <OrbitalParticle radius={1.3} speed={0.5} size={0.08} color="#ffffff" />
+      <OrbitalParticle radius={1.6} speed={-0.3} rotationOffset={Math.PI} size={0.05} color="#9b87f5" />
+      <OrbitalParticle radius={1.9} speed={0.2} rotationOffset={Math.PI/2} size={0.06} color="#c4b5fd" />
       
-      <OrbitalTrail radius={1.2} speed={0.5} color="#3b82f6" />
-      <OrbitalTrail radius={1.8} speed={-0.3} rotationOffset={Math.PI/3} color="#60a5fa" />
+      <OrbitalTrail radius={1.3} speed={0.5} color="#1EAEDB" />
+      <OrbitalTrail radius={1.9} speed={-0.3} rotationOffset={Math.PI/3} color="#8B5CF6" />
       
       <OrbitControls 
         enableZoom={false} 
