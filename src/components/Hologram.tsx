@@ -1,8 +1,8 @@
-
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Sphere, Trail } from '@react-three/drei';
+import { OrbitControls, Sphere, Trail, Stars } from '@react-three/drei';
 import * as THREE from 'three';
+import HologramHuman from './HologramHuman';
 
 // Earth grid texture component
 const GlobeGrid = ({ radius = 0.9 }: { radius?: number }) => {
@@ -193,6 +193,25 @@ const OrbitalTrail = ({
   );
 };
 
+// Space background
+const SpaceBackground = () => {
+  return (
+    <>
+      <Stars 
+        radius={100} 
+        depth={50} 
+        count={5000} 
+        factor={4} 
+        saturation={0} 
+        fade 
+        speed={1} 
+      />
+      <pointLight position={[10, 10, 10]} intensity={0.2} />
+      <pointLight position={[-10, -10, -10]} intensity={0.1} color="#8B5CF6" />
+    </>
+  );
+};
+
 // Ambient light effect
 const AmbientGlow = () => {
   return (
@@ -203,27 +222,34 @@ const AmbientGlow = () => {
 const HologramScene = () => {
   return (
     <>
+      <SpaceBackground />
       <AmbientGlow />
-      <CoreSphere />
-      <GlobeGrid />
-      <Nodes count={32} radius={1.1} />
       
-      <OrbitalRing radius={1.3} rotation={1} color="#8B5CF6" />
-      <OrbitalRing radius={1.6} rotation={-0.5} color="#6b72ff" />
-      <OrbitalRing radius={1.9} rotation={0.7} color="#7E69AB" thickness={0.01} speed={0.12} />
+      <group position={[-2, 0, 0]}>
+        <CoreSphere />
+        <GlobeGrid />
+        <Nodes count={32} radius={1.1} />
+        
+        <OrbitalRing radius={1.3} rotation={1} color="#8B5CF6" />
+        <OrbitalRing radius={1.6} rotation={-0.5} color="#6b72ff" />
+        <OrbitalRing radius={1.9} rotation={0.7} color="#7E69AB" thickness={0.01} speed={0.12} />
+        
+        <OrbitalParticle radius={1.3} speed={0.5} size={0.08} color="#ffffff" />
+        <OrbitalParticle radius={1.6} speed={-0.3} rotationOffset={Math.PI} size={0.05} color="#9b87f5" />
+        <OrbitalParticle radius={1.9} speed={0.2} rotationOffset={Math.PI/2} size={0.06} color="#c4b5fd" />
+        
+        <OrbitalTrail radius={1.3} speed={0.5} color="#1EAEDB" />
+        <OrbitalTrail radius={1.9} speed={-0.3} rotationOffset={Math.PI/3} color="#8B5CF6" />
+      </group>
       
-      <OrbitalParticle radius={1.3} speed={0.5} size={0.08} color="#ffffff" />
-      <OrbitalParticle radius={1.6} speed={-0.3} rotationOffset={Math.PI} size={0.05} color="#9b87f5" />
-      <OrbitalParticle radius={1.9} speed={0.2} rotationOffset={Math.PI/2} size={0.06} color="#c4b5fd" />
-      
-      <OrbitalTrail radius={1.3} speed={0.5} color="#1EAEDB" />
-      <OrbitalTrail radius={1.9} speed={-0.3} rotationOffset={Math.PI/3} color="#8B5CF6" />
+      {/* Human hologram figure */}
+      <HologramHuman scale={0.8} />
       
       <OrbitControls 
         enableZoom={false} 
         enablePan={false} 
         autoRotate 
-        autoRotateSpeed={0.5} 
+        autoRotateSpeed={0.2}
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI - Math.PI / 4}
       />
@@ -234,7 +260,7 @@ const HologramScene = () => {
 const Hologram = () => {
   return (
     <div className="hologram-container">
-      <Canvas camera={{ position: [0, 0, 5] }}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
         <HologramScene />
       </Canvas>
     </div>
