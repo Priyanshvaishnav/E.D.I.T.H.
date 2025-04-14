@@ -1,5 +1,5 @@
+
 import React, { useEffect, useRef } from 'react';
-import HologramScene from './HologramScene';
 
 // Define custom element for TypeScript
 declare global {
@@ -50,9 +50,7 @@ const EdithInterface = () => {
           </h1>
         </div>
         
-        <div className="mt-16 h-[75vh] min-h-[600px]">
-          <HologramScene />
-        </div>
+        <div className="mt-16 h-[75vh] min-h-[600px]" />
         
         <div className="convai-widget-wrapper mt-4 max-w-2xl mx-auto">
           <div className="neo-glass">
