@@ -43,58 +43,21 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
-    background: linear-gradient(to bottom, #0a0d1e, #151d36);
-    position: relative;
+    background: linear-gradient(to bottom right, hsl(220 18% 6%), hsl(240 18% 10%));
     min-height: 100vh;
-    overflow: hidden;
-  }
-
-  /* Space background with stars - now as a secondary layer */
-  body::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-image: 
-      radial-gradient(1px 1px at 25% 25%, rgba(255, 255, 255, 0.2) 0%, transparent 100%),
-      radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 100%),
-      radial-gradient(2px 2px at 75% 75%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
-      radial-gradient(2px 2px at 33% 88%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 65% 15%, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
-    background-size: 200% 200%;
-    z-index: -1;
-    opacity: 0.6;
-  }
-
-  /* Digital grid background */
-  body::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-image: 
-      linear-gradient(rgba(30, 174, 219, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(30, 174, 219, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    z-index: -1;
   }
 
   .edith-container {
     @apply flex items-center justify-center min-h-screen;
-    position: relative;
-    z-index: 1;
   }
 
   /* Hologram styling */
   .hologram-wrapper {
+    height: 55vh;
+    min-height: 450px;
     width: 100%;
     margin: 0 auto;
     position: relative;
-    perspective: 1000px;
   }
 
   .hologram-container {
@@ -102,10 +65,9 @@
     height: 100%;
     position: relative;
     overflow: visible;
-    border-radius: 10px;
   }
 
-  /* Add advanced glow effect to the hologram */
+  /* Add glow effect to the hologram */
   .hologram-container::after {
     content: '';
     position: absolute;
@@ -113,103 +75,32 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at center, rgba(107, 114, 255, 0.3) 0%, rgba(83, 91, 245, 0.2) 30%, transparent 70%);
+    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
     pointer-events: none;
     z-index: 1;
-    animation: pulse 4s ease-in-out infinite alternate;
-    border-radius: 10px;
-  }
-
-  /* Modern hologram overlay effect */
-  .hologram-overlay {
-    pointer-events: none;
-    background: 
-      linear-gradient(0deg, rgba(30, 174, 219, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(30, 174, 219, 0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
-    background-position: center center;
-    animation: grid-move 15s linear infinite;
-    mix-blend-mode: screen;
-  }
-
-  /* Scan line effect */
-  .scan-line {
-    background: linear-gradient(to bottom, 
-      transparent 0%, 
-      rgba(52, 211, 235, 0.1) 50%, 
-      transparent 100%);
-    background-size: 100% 8px;
-    animation: scanlines 2s linear infinite;
-    mix-blend-mode: overlay;
-  }
-
-  /* Glitch effect container */
-  .glitch-effect {
-    overflow: hidden;
-  }
-
-  .glitch-effect::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 300%;
-    height: 4px;
-    background-color: rgba(83, 230, 252, 0.4);
-    box-shadow: 0 0 15px 3px rgba(83, 230, 252, 0.6);
-    animation: glitch-scan 3s linear infinite;
-    mix-blend-mode: screen;
-  }
-
-  @keyframes grid-move {
-    0% { background-position: 0 0; }
-    100% { background-position: 50px 50px; }
-  }
-
-  @keyframes scanlines {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-  }
-
-  @keyframes glitch-scan {
-    0% { top: -10%; }
-    70% { top: 110%; }
-    70.1% { top: -10%; }
-    100% { top: -10%; }
-  }
-
-  @keyframes pulse {
-    0% { opacity: 0.5; }
-    100% { opacity: 1; }
-  }
-
-  /* Glassmorphism effect */
-  .neo-glass {
-    @apply backdrop-blur-xl bg-black/30 border border-indigo-500/20 rounded-xl;
-    box-shadow: 0 8px 32px rgba(2, 4, 15, 0.3), 0 0 10px rgba(99, 102, 241, 0.3);
   }
 
   /* ElevenLabs widget custom styling */
   elevenlabs-convai {
     --elevenlabs-convai-width: 100%;
-    --elevenlabs-convai-height: 400px;
+    --elevenlabs-convai-height: 85vh;
     --elevenlabs-convai-border-radius: 1rem;
-    --elevenlabs-convai-chat-bubble-user-bg-color: #5a67d8;
+    --elevenlabs-convai-chat-bubble-user-bg-color: #3b82f6;
     --elevenlabs-convai-chat-bubble-bot-bg-color: rgba(30, 41, 59, 0.7);
     --elevenlabs-convai-font-family: 'Inter', system, -apple-system, BlinkMacSystemFont, sans-serif;
     --elevenlabs-convai-chat-bot-bubble-font-color: #e2e8f0;
     --elevenlabs-convai-chat-user-bubble-font-color: #ffffff;
-    --elevenlabs-convai-bg-color: transparent;
-    --elevenlabs-convai-border-color: transparent;
-    --elevenlabs-convai-button-color: #5a67d8;
-    --elevenlabs-convai-button-active-color: #4c51bf;
-    --elevenlabs-convai-shadow-color: rgba(99, 102, 241, 0.2);
+    --elevenlabs-convai-bg-color: rgba(15, 23, 42, 0.3);
+    --elevenlabs-convai-border-color: rgba(59, 130, 246, 0.2);
+    --elevenlabs-convai-button-color: #3b82f6;
+    --elevenlabs-convai-button-active-color: #2563eb;
+    --elevenlabs-convai-shadow-color: rgba(59, 130, 246, 0.1);
     
-    /* Modern glass effect */
-    backdrop-filter: blur(0px); /* Removed because parent has blur */
-    -webkit-backdrop-filter: blur(0px);
-    border: none;
-    box-shadow: none;
+    /* Glass effect */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    box-shadow: 0 8px 32px rgba(2, 4, 15, 0.2);
   }
 
   @keyframes fadeIn {
@@ -219,34 +110,5 @@
 
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;
-  }
-
-  /* Title styling */
-  .edith-title {
-    text-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
-    letter-spacing: 0.5rem;
-    position: relative;
-  }
-
-  .edith-title::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    width: 50%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.8), transparent);
-    transform: translateX(-50%);
-  }
-  
-  /* Beam effect animations */
-  @keyframes beam {
-    0% { opacity: 0.3; transform: scale(0.98); }
-    50% { opacity: 0.7; transform: scale(1.02); }
-    100% { opacity: 0.3; transform: scale(0.98); }
-  }
-  
-  .beam-effect {
-    animation: beam 4s ease-in-out infinite;
   }
 }
