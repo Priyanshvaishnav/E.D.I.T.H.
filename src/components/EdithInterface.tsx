@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { UniverseScene } from './UniverseScene';
 
@@ -36,13 +37,15 @@ const EdithInterface = () => {
       {/* Universe Scene */}
       <UniverseScene />
       
-      {/* Background overlay */}
+      {/* Background overlay with enhanced space effect */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/10"></div>
+        {/* Multi-layer gradient overlay for space effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/30"></div>
+        <div className="absolute inset-0 bg-[#0a0d1e]/50 mix-blend-overlay"></div>
         <img 
           src="/lovable-uploads/406fc301-03a2-470e-883d-e3b6ca3a661a.png" 
           alt="Background" 
-          className="w-full h-full object-contain"
+          className="w-full h-full object-contain opacity-60 mix-blend-soft-light"
         />
       </div>
       
