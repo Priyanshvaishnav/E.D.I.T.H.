@@ -1,6 +1,5 @@
 
 import React, { useEffect, useRef } from 'react';
-import Hologram from './Hologram';
 
 // Define custom element for TypeScript
 declare global {
@@ -34,15 +33,14 @@ const EdithInterface = () => {
 
   return (
     <div className="edith-container p-4 animate-fade-in" ref={containerRef}>
-      {/* Background image overlay */}
+      {/* Background image with adjusted size */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-black/40 mix-blend-multiply"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30"></div>
         <img 
           src="/lovable-uploads/406fc301-03a2-470e-883d-e3b6ca3a661a.png" 
-          alt="Holographic background" 
-          className="w-full h-full object-cover opacity-70"
+          alt="Background" 
+          className="w-full h-full object-contain"
         />
-        <div className="absolute inset-0 hologram-overlay"></div>
       </div>
       
       <div className="max-w-7xl mx-auto w-full relative z-10">
@@ -52,9 +50,7 @@ const EdithInterface = () => {
           </h1>
         </div>
         
-        <div className="hologram-wrapper mt-16 h-[75vh] min-h-[600px]">
-          <Hologram />
-        </div>
+        <div className="mt-16 h-[75vh] min-h-[600px]" />
         
         <div className="convai-widget-wrapper mt-4 max-w-2xl mx-auto">
           <div className="neo-glass">
