@@ -1,5 +1,5 @@
-
 import React, { useEffect, useRef } from 'react';
+import { UniverseScene } from './UniverseScene';
 
 // Define custom element for TypeScript
 declare global {
@@ -33,9 +33,12 @@ const EdithInterface = () => {
 
   return (
     <div className="edith-container p-4 animate-fade-in" ref={containerRef}>
-      {/* Background image with adjusted size */}
+      {/* Universe Scene */}
+      <UniverseScene />
+      
+      {/* Background overlay */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/10"></div>
         <img 
           src="/lovable-uploads/406fc301-03a2-470e-883d-e3b6ca3a661a.png" 
           alt="Background" 
