@@ -14,7 +14,20 @@ const RotatingStars = () => {
     }
   });
 
-  return <Stars ref={starsRef} radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />;
+  // Updated stars with purplish-blue color scheme
+  return (
+    <Stars 
+      ref={starsRef} 
+      radius={100} 
+      depth={50} 
+      count={5000} 
+      factor={4} 
+      saturation={0.5} 
+      fade 
+      speed={1}
+      color="#9b87f5" // Added purplish color
+    />
+  );
 };
 
 export const UniverseScene = () => {
@@ -30,8 +43,8 @@ export const UniverseScene = () => {
         pointerEvents: 'none',
       }}
     >
-      <color attach="background" args={['#000']} />
-      <ambientLight intensity={0.5} />
+      <color attach="background" args={['#0a0d1e']} /> {/* Darker blue background color */}
+      <ambientLight intensity={0.7} color="#1EAEDB" /> {/* Added blue tint to ambient light */}
       <RotatingStars />
     </Canvas>
   );
