@@ -46,7 +46,7 @@ const EdithInterface = () => {
         </div>
         
         <div className="convai-widget-wrapper mt-4">
-          <elevenlabs-convai agent-id="l7x6pl7IIlFC8Q6ECgiw"></elevenlabs-convai>
+          <elevenlabs-convai agent-id="bZv6t6o4WznwBDWymlB9"></elevenlabs-convai>
         </div>
       </div>
     </div>
