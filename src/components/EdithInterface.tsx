@@ -1,6 +1,6 @@
 
-import React, { useEffect } from 'react';
-import VoiceAssistant from './VoiceInterface/VoiceAssistant';
+import React, { useEffect, useRef } from 'react';
+import Hologram from './Hologram';
 
 // Define custom element for TypeScript
 declare global {
@@ -14,6 +14,8 @@ declare global {
 }
 
 const EdithInterface = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
     // Create and append ElevenLabs widget script
     const script = document.createElement('script');
@@ -31,7 +33,7 @@ const EdithInterface = () => {
   }, []);
 
   return (
-    <div className="edith-container p-4 animate-fade-in">
+    <div className="edith-container p-4 animate-fade-in" ref={containerRef}>
       <div className="max-w-6xl w-full relative">
         <div className="absolute top-0 left-0 right-0 flex justify-center z-10">
           <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
@@ -39,7 +41,9 @@ const EdithInterface = () => {
           </h1>
         </div>
         
-        <VoiceAssistant />
+        <div className="hologram-wrapper mt-16">
+          <Hologram />
+        </div>
         
         <div className="convai-widget-wrapper mt-4">
           <elevenlabs-convai agent-id="bZv6t6o4WznwBDWymlB9"></elevenlabs-convai>
