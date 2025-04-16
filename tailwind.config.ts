@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				orbitron: ['Orbitron', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -94,12 +98,21 @@ export default {
 						opacity: '0.1',
 						transform: 'scale(1.1)',
 					},
+				},
+				glow: {
+					'0%, 100%': {
+						filter: 'brightness(1) drop-shadow(0 0 10px rgba(120, 0, 255, 0.5))',
+					},
+					'50%': {
+						filter: 'brightness(1.3) drop-shadow(0 0 20px rgba(120, 0, 255, 0.8))',
+					},
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				glow: 'glow 3s ease-in-out infinite',
 			}
 		}
 	},
