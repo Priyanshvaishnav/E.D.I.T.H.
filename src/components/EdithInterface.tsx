@@ -1,6 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
 import AudioVisualizer from './AudioVisualizer';
+import { BackgroundBeams } from "./ui/background-beams";
+import { SparklesCore } from "./ui/sparkles";
 
 declare global {
   namespace JSX {
@@ -53,14 +55,26 @@ const EdithInterface = () => {
   }, []);
 
   return (
-    <div className="edith-container p-4 animate-fade-in relative">
+    <div className="edith-container p-4 animate-fade-in relative min-h-screen bg-black/90">
+      {/* Aceternity UI background effects */}
+      <BackgroundBeams className="absolute inset-0" />
+      <div className="absolute inset-0 h-screen w-full bg-black [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]" />
+      <SparklesCore
+        id="tsparticlesfullpage"
+        background="transparent"
+        minSize={0.6}
+        maxSize={1.4}
+        particleDensity={100}
+        className="absolute inset-0 h-full w-full"
+        particleColor="#FFFFFF"
+      />
+      
       <div className="aurora-container">
         <div className="aurora-beam aurora-beam-1"></div>
         <div className="aurora-beam aurora-beam-2"></div>
         <div className="aurora-beam aurora-beam-3"></div>
       </div>
       
-      {/* Shooting stars */}
       {shootingStars}
       
       <div className="max-w-6xl w-full mx-auto relative z-10">
