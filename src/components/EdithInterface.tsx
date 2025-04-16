@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import AudioVisualizer from './AudioVisualizer';
 
 declare global {
@@ -13,12 +13,37 @@ declare global {
 }
 
 const EdithInterface = () => {
+  const [shootingStars, setShootingStars] = useState<JSX.Element[]>([]);
+
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://elevenlabs.io/convai-widget/index.js';
     script.async = true;
     script.type = 'text/javascript';
     document.body.appendChild(script);
+
+    // Generate shooting stars
+    const generateShootingStar = () => {
+      return {
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 5}s`,
+        rotation: `${Math.random() * 360}deg`
+      };
+    };
+
+    const newShootingStars = Array.from({ length: 5 }, () => (
+      <div 
+        key={Math.random()}
+        className="shooting-star" 
+        style={{
+          ...generateShootingStar(),
+          transform: `rotate(${generateShootingStar().rotation})`
+        }} 
+      />
+    ));
+
+    setShootingStars(newShootingStars);
 
     return () => {
       if (document.body.contains(script)) {
@@ -34,6 +59,9 @@ const EdithInterface = () => {
         <div className="aurora-beam aurora-beam-2"></div>
         <div className="aurora-beam aurora-beam-3"></div>
       </div>
+      
+      {/* Shooting stars */}
+      {shootingStars}
       
       <div className="max-w-6xl w-full mx-auto relative z-10">
         <div className="flex flex-col items-center justify-center">
