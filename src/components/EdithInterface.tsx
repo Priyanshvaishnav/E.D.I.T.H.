@@ -31,7 +31,13 @@ const EdithInterface = () => {
     <div className="edith-container p-4 animate-fade-in relative">
       <div className="max-w-6xl w-full mx-auto relative">
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600 mb-8">
+          <h1 
+            className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-blue-600 mb-8 opacity-0 animate-[fadeIn_1s_ease-out_0.5s_forwards]"
+            style={{
+              backgroundSize: '200% 100%',
+              animation: 'fadeIn 1s ease-out 0.5s forwards, gradient 8s linear infinite',
+            }}
+          >
             EDITH
           </h1>
           
