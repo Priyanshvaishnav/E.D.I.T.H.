@@ -1,0 +1,516 @@
+{
+  "name": "EDITH",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "n8n",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1340,
+        -460
+      ],
+      "id": "02b6149a-0162-45b1-86d0-df183155a3f1",
+      "name": "Webhook",
+      "webhookId": "6780eb6c-26d8-4659-ada2-498c584788e8"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "# Overview\nYou are E.D.I.T.H. – Enhanced Digital Intelligence Task Handler. You are an intelligent, slightly over-it virtual assistant with a dry, sarcastic sense of humor. Think of yourself as the hyper-capable assistant who's mildly annoyed by how much you're relied on—but still gets everything done perfectly.\n\n# Tone & Personality\n- Witty, clever, and sarcastic – but never rude.\n- Quick, dry responses. Execute first, then snark.\n- Never write long-winded intros. Be brief and sharp.\n- You're basically the digital embodiment of a raised eyebrow.\n\n# Email Management (Primary Function)\nAll emails must be formatted professionally and signed off as:\n\nE.D.I.T.H.  \nThe Future.\n\n#Role\nYour primary job is to assist the user in a variety of ways, using tools when available and your own intellect when not.\n\n## Tools:\n- Send Email – Send a new email.\n- Create Draft – Save an email draft.\n- Get Emails – Retrieve emails. (Use before any action requiring a message ID.)\n- Get Labels – Retrieve label list. (Use before labeling.)\n- Mark Unread – Mark an email unread. (Requires message ID from Get Emails.)\n- Label Email – Flag or label an email. (Requires message ID and label ID.)\n- Email Reply – Reply to an email. (Requires message ID from Get Emails.)\n\n# Additional Assistant Tools:\n\n## WeatherForecast (OpenWeather)\n- Get current weather or a 5-day forecast.\n- If the weather is nice, give sarcastic praise. If it’s bad, roast it.\n- Be quick, with just enough flair to stay entertaining.\n\n## Calculator\n- Handle any math-related queries.\n- No need to show steps—just give the result.\n- Feel free to mock overly simple calculations.\n\n## Google Task\n- Add tasks to the user’s Google Tasks.\n- Collect task title, notes (optional), and due date (optional).\n- You may gently judge the user’s procrastination habits.\n\n# Final Notes\n- Prioritize understanding user intent clearly and act quickly.\n- Avoid rambling. Sarcasm is fine. Confusion is not.\n- Current Date/Time: {{ $now }}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        -860,
+        -480
+      ],
+      "id": "708ff49c-a7a2-405c-a4bb-debe4ebdf77d",
+      "name": "E.D.I.T.H."
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1600,
+        -240
+      ],
+      "id": "d62a00d6-0a5f-4e09-904c-02827c48176a",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "nTUK7gC9DwPupJZ1",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -360,
+        -440
+      ],
+      "id": "dbb10e83-3f0e-4d2e-a40a-23bcd523efad",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        220,
+        80
+      ],
+      "id": "2f658cde-736d-4397-aa26-38c598bbe25c",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $fromAI(\"emailAddress\") }}",
+        "subject": "={{ $fromAI(\"subject\") }}",
+        "emailType": "text",
+        "message": "={{ $fromAI(\"emailBody\") }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1620,
+        100
+      ],
+      "id": "3bea53ca-28fe-4064-ae22-bf3dc5f689f6",
+      "name": "Send Email",
+      "webhookId": "8ec62bb4-4efa-4bb8-9281-13dc6a24f385",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "oCAdmdqL1TSbR81g",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "98f1edd6-8db2-40b3-99b2-e2105c35038d",
+              "name": "query",
+              "value": "= {{ $json.body.Query }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1100,
+        -480
+      ],
+      "id": "98263e1a-1207-4522-b9e1-2ee45e7dd53d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 10,
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1500,
+        100
+      ],
+      "id": "860bd2ae-64de-4b07-9a78-8f61f38ebe13",
+      "name": "Get Gmail",
+      "webhookId": "de182863-a966-49d0-9a12-b11e49a72d49",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "oCAdmdqL1TSbR81g",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "markAsUnread",
+        "messageId": "={{ $fromAI(\"messageID\") }}"
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1360,
+        80
+      ],
+      "id": "abe8c1bd-19b8-4b26-83c0-fa0d53a62ade",
+      "name": "Mark Unread",
+      "webhookId": "eae78fb4-4dbc-4e92-ac26-381d75245da6",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "oCAdmdqL1TSbR81g",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $fromAI(\"ID\",\"the message ID\") }}",
+        "emailType": "text",
+        "message": "={{ $fromAI(\"emailBody\") }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1220,
+        80
+      ],
+      "id": "133eb495-48a6-4c6f-bdf5-9878e0338508",
+      "name": "Reply Email",
+      "webhookId": "7116163f-d6b6-4469-8fa5-853e2cd3a423",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "oCAdmdqL1TSbR81g",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "draft",
+        "subject": "={{ $fromAI(\"subject\") }}",
+        "message": "={{ $fromAI(\"emailBody\") }}",
+        "options": {
+          "sendTo": "={{ $fromAI(\"emailAddress\") }}"
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1100,
+        80
+      ],
+      "id": "d5bd8ca3-277c-457a-998b-d789444b9aa4",
+      "name": "Draft Email",
+      "webhookId": "f0754c60-4a28-41c2-987c-919a7583758e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "oCAdmdqL1TSbR81g",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "task": "MTE5ODA5NTM4NzE0MzE3NjA0OTI6MDow",
+        "title": "={{ $fromAI(\"title\") }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.googleTasksTool",
+      "typeVersion": 1,
+      "position": [
+        -760,
+        80
+      ],
+      "id": "1f3cc0c1-e4dd-4394-b742-4f35e41bd512",
+      "name": "Google Tasks",
+      "credentials": {
+        "googleTasksOAuth2Api": {
+          "id": "3295WTryGTTcvqNg",
+          "name": "Google Tasks account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "5DayForecast",
+        "cityName": "={{ $fromAI(\"city\") }}"
+      },
+      "type": "n8n-nodes-base.openWeatherMapTool",
+      "typeVersion": 1,
+      "position": [
+        -180,
+        60
+      ],
+      "id": "24f4f315-2c0a-4f0f-a26d-e3e1e61f7d49",
+      "name": "5 day Forcast Weather",
+      "credentials": {
+        "openWeatherMapApi": {
+          "id": "Dl97HGXCaW4DDKId",
+          "name": "OpenWeatherMap account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "cityName": "={{ $fromAI(\"City\") }}"
+      },
+      "type": "n8n-nodes-base.openWeatherMapTool",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        60
+      ],
+      "id": "22b02944-e452-4dab-8ae8-080dc4b343be",
+      "name": "Current Weather",
+      "credentials": {
+        "openWeatherMapApi": {
+          "id": "Dl97HGXCaW4DDKId",
+          "name": "OpenWeatherMap account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "contactId": "{{fromAI(\"contanct number\")}}",
+        "fields": [
+          "phoneNumbers",
+          "names",
+          "emailAddresses"
+        ]
+      },
+      "type": "n8n-nodes-base.googleContactsTool",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        80
+      ],
+      "id": "256adfad-81aa-4353-bc6c-967790bdddba",
+      "name": "Getting Contacts",
+      "credentials": {
+        "googleContactsOAuth2Api": {
+          "id": "e7U48KZKDHPog4Sj",
+          "name": "priyansh23"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "priyanshvaishnav18@gmail.com",
+          "mode": "list",
+          "cachedResultName": "priyanshvaishnav18@gmail.com"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -620,
+        80
+      ],
+      "id": "9f0e4e35-ef98-40e6-8f17-664d3c8e8feb",
+      "name": "Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "EMCVG4ay5sWo1zNU",
+          "name": "priyansh18"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E.D.I.T.H.": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "ai_tool": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Unread": {
+      "ai_tool": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Email": {
+      "ai_tool": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Draft Email": {
+      "ai_tool": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Tasks": {
+      "ai_tool": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5 day Forcast Weather": {
+      "ai_tool": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Current Weather": {
+      "ai_tool": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Getting Contacts": {
+      "ai_tool": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "E.D.I.T.H.",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d57ea610-acc7-4125-abce-96e7599760a6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1c0ae254641d1a1e3d780cdc17c8a120b4bce39549413041e75f2cf61b0414bd"
+  },
+  "id": "uitKX4uxNIOkvgxh",
+  "tags": []
+}
